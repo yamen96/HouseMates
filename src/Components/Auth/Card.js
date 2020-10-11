@@ -8,6 +8,7 @@ export const Card = styled.div`
   width: 425px;
   margin: 2% auto;
   box-shadow: 5px 10px 25px rgba(0, 0, 0, 0.25);
+  padding-bottom: 40px;
 `;
 
 export const CardHeading = styled.div`
@@ -92,11 +93,10 @@ export const ErrorMessage = styled.div`
 `;
 
 export const Submit = styled(Input)`
-  margin-bottom: 40px;
-  background: #18a379;
+  background: ${(props) => (props.primary ? "#18a379" : "#e66f65")};
   color: #ffffff;
   padding: 5px 0 5px 0;
-  width: 200px;
+  width: 275px;
   border-radius: 5px;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.24), 0px 0px 2px rgba(0, 0, 0, 0.12);
   :focus {
@@ -106,6 +106,11 @@ export const Submit = styled(Input)`
   :hover {
     cursor: pointer;
   }
+`;
+
+export const Link = styled.a`
+  padding-top: 25px;
+  width: 275px;
 `;
 
 function SignInOrUpCard({ children, variant }) {
