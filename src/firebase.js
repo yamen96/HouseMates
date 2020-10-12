@@ -10,9 +10,11 @@ const firebaseConfig = {
   storageBucket: "housemates-5ad62.appspot.com",
   messagingSenderId: "442658245192",
   appId: "1:442658245192:web:45d55cdc30e50a8fa1a67d",
-  measurementId: "G-2VVPJY4Z2D",
 };
 
 firebase.initializeApp(firebaseConfig);
-export const auth = firebase.auth();
-export const firestore = firebase.firestore();
+const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+export { auth, db, googleAuthProvider };

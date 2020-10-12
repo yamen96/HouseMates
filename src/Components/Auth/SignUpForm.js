@@ -1,11 +1,19 @@
 import React from "react";
-import { Form, Input, Submit, ErrorMessage } from "./Card";
+import { useState } from "react";
+import { Form, Input, Button, ErrorMessage } from "./Card";
 import useForm from "../../Hooks/useForm";
 import validate from "../../Validation/SignUpFormValidation";
+import { auth } from "../../firebase";
 
 function SignUp() {
+  const [signUpError, setSignUpError] = useState("");
+
   const signup = () => {
-    console.log(inputs);
+    auth
+      .createUserWithEmailAndPassword(inputs.email, inputs.pass)
+      .catch(function (error) {
+        setSignUpError(error.message);
+      });
   };
 
   const { inputs, handleInputChange, handleSubmit, errors } = useForm(
@@ -17,10 +25,10 @@ function SignUp() {
     <Form onSubmit={handleSubmit}>
       <Input
         type="text"
-        placeholder="Username"
-        name="username"
+        placeholder="Display Name"
+        name="name"
         onChange={handleInputChange}
-        value={inputs.username || ""}
+        value={inputs.name || ""}
       ></Input>
       {errors.username && <ErrorMessage>{errors.username}</ErrorMessage>}
       <Input
@@ -47,7 +55,11 @@ function SignUp() {
         value={inputs.pass2 || ""}
       ></Input>
       {errors.pass2 && <ErrorMessage>{errors.pass2}</ErrorMessage>}
-      <Submit primary type="submit" value="Sign Up"></Submit>
+      <br />
+      {signUpError && (
+        <ErrorMessage style={{ padding: "5px" }}>{signUpError}</ErrorMessage>
+      )}
+      <Button primary>Sign Up</Button>
     </Form>
   );
 }

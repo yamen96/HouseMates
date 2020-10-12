@@ -1,12 +1,12 @@
 import React from "react";
-import SignInOrUpCard from "../Components/Auth/Card";
+import MainCard from "../Components/Auth/Card";
 import SignUpForm from "../Components/Auth/SignUpForm";
 
 function SignUp() {
   return (
-    <SignInOrUpCard variant="SignUp">
+    <MainCard variant="SignUp">
       <SignUpForm />
-    </SignInOrUpCard>
+    </MainCard>
   );
 }
 

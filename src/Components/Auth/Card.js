@@ -45,6 +45,13 @@ export const CardSubHeading = styled.div`
       cursor: pointer;
     }
   }
+  h2 {
+    font-size: 28px;
+    color: #076b4d;
+    padding: 10px;
+    border: none;
+    background: transparent;
+  }
   .Selected {
     border-bottom: solid 4px;
   }
@@ -92,19 +99,21 @@ export const ErrorMessage = styled.div`
   border-radius: 7px;
 `;
 
-export const Submit = styled(Input)`
+export const Button = styled.button`
+  font-size: 24px;
+  margin: 30px 0px;
+  border: 0;
+  outline: 0;
   background: ${(props) => (props.primary ? "#18a379" : "#e66f65")};
   color: #ffffff;
   padding: 5px 0 5px 0;
   width: 275px;
   border-radius: 5px;
+  transition: 0.2s;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.24), 0px 0px 2px rgba(0, 0, 0, 0.12);
-  :focus {
-    border: none;
-    font-weight: 400;
-  }
   :hover {
     cursor: pointer;
+    background: ${(props) => (props.primary ? "#138764" : "#b3564f")};
   }
 `;
 
@@ -113,7 +122,7 @@ export const Link = styled.a`
   width: 275px;
 `;
 
-function SignInOrUpCard({ children, variant }) {
+function MainCard({ children, variant, title }) {
   const history = useHistory();
 
   const handleClick = () => {
@@ -138,9 +147,14 @@ function SignInOrUpCard({ children, variant }) {
           <h1 className="Selected"> Sign Up </h1>
         </CardSubHeading>
       )}
+      {variant === "other" && (
+        <CardSubHeading>
+          <h2> {title} </h2>
+        </CardSubHeading>
+      )}
       {children}
     </Card>
   );
 }
 
-export default SignInOrUpCard;
+export default MainCard;

@@ -1,12 +1,20 @@
 import React from "react";
-import { Form, Input, Submit, ErrorMessage } from "./Card";
+import { useState } from "react";
+import { Form, Input, Button, ErrorMessage } from "./Card";
 import useForm from "../../Hooks/useForm";
 import { Link } from "react-router-dom";
 import validate from "../../Validation/SignInFormValidation";
+import { auth } from "../../firebase";
 
 function SignIn() {
+  const [signInError, setSignInError] = useState("");
+
   const signin = () => {
-    console.log(inputs);
+    auth
+      .signInWithEmailAndPassword(inputs.email, inputs.pass)
+      .catch(function (error) {
+        setSignInError(error.message);
+      });
   };
 
   const { inputs, handleInputChange, handleSubmit, errors } = useForm(
@@ -15,7 +23,7 @@ function SignIn() {
   );
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form>
       <Input
         type="text"
         placeholder="Email"
@@ -32,15 +40,19 @@ function SignIn() {
         value={inputs.pass || ""}
       ></Input>
       {errors.pass && <ErrorMessage>{errors.pass}</ErrorMessage>}
-      <Submit type="submit" primary={true} value="Sign In"></Submit>
+      <br />
+      {signInError && (
+        <ErrorMessage style={{ padding: "5px" }}>{signInError}</ErrorMessage>
+      )}
+      <Button
+        primary
+        onClick={(e) => handleSubmit(e, inputs.email, inputs.pass)}
+      >
+        Sign In
+      </Button>
       <Link style={{ width: "275px" }} to="passwordReset">
         Forgot Password?
       </Link>
-      <Submit
-        type="submit"
-        primary={false}
-        value="Sign In with Google"
-      ></Submit>
     </Form>
   );
 }
