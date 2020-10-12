@@ -22,7 +22,7 @@ function SignUp() {
   );
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form>
       <Input
         type="text"
         placeholder="Display Name"
@@ -30,7 +30,7 @@ function SignUp() {
         onChange={handleInputChange}
         value={inputs.name || ""}
       ></Input>
-      {errors.username && <ErrorMessage>{errors.username}</ErrorMessage>}
+      {errors.name && <ErrorMessage>{errors.name}</ErrorMessage>}
       <Input
         type="text"
         placeholder="Email"
@@ -59,7 +59,9 @@ function SignUp() {
       {signUpError && (
         <ErrorMessage style={{ padding: "5px" }}>{signUpError}</ErrorMessage>
       )}
-      <Button primary>Sign Up</Button>
+      <Button primary onClick={handleSubmit}>
+        Sign Up
+      </Button>
     </Form>
   );
 }

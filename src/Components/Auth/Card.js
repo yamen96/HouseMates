@@ -87,16 +87,32 @@ export const Input = styled.input`
   }
 `;
 
-export const ErrorMessage = styled.div`
+const Message = styled.div`
   width: 275px;
   font-size: 15px;
-  margin-top: 10px;
   margin-bottom: -25px;
-  background: #c4c4c4;
   display: flex;
   justify-content: center;
-  color: #ff0000;
   border-radius: 7px;
+`;
+
+export const ErrorMessage = styled(Message)`
+  margin-top: 10px;
+  color: #ff0000;
+  background: #c4c4c4;
+`;
+
+export const SuccessMessage = styled(Message)`
+  font-size: 17px;
+  margin-top: 15px;
+  padding: 10px;
+  background: #21d9a2;
+`;
+
+export const InfoMessage = styled(Message)`
+  font-size: 17px;
+  margin-top: 15px;
+  padding: 10px;
 `;
 
 export const Button = styled.button`
@@ -115,11 +131,9 @@ export const Button = styled.button`
     cursor: pointer;
     background: ${(props) => (props.primary ? "#138764" : "#b3564f")};
   }
-`;
-
-export const Link = styled.a`
-  padding-top: 25px;
-  width: 275px;
+  div {
+    color: #ffffff;
+  }
 `;
 
 function MainCard({ children, variant, title }) {
