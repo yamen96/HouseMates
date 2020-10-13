@@ -20,7 +20,6 @@ function PasswordReset() {
   });
 
   const passReset = () => {
-    console.log("SENT EMAIL");
     auth
       .sendPasswordResetEmail(inputs.email)
       .then(function () {

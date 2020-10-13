@@ -1,24 +1,42 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./App";
+import App, { history } from "./App";
+import { Provider } from "react-redux";
+import { createStore } from "redux";
 import { auth } from "./firebase";
+import reducer from "./Reducers/";
+import { setUser, clearUser } from "./Actions/authActions";
 import * as serviceWorker from "./serviceWorker";
 
-auth.onAuthStateChanged(function (user) {
+const store = createStore(
+  reducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
+
+auth.onAuthStateChanged(async (user) => {
   if (user) {
     // User is signed in.
-    console.log(user.email);
-    console.log(user.uid);
+    store.dispatch(setUser(user.email, user.uid));
+    const path = history.location.pathname;
+    if (
+      path === "/signin" ||
+      path === "/signup" ||
+      path === "/passwordReset" ||
+      path === "/"
+    )
+      history.push("/dashboard");
   } else {
     // User is signed out.
+    store.dispatch(clearUser());
+    history.push("/signin");
   }
 });
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <App />
-  </React.StrictMode>,
+  </Provider>,
   document.getElementById("root")
 );
 

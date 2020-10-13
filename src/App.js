@@ -1,20 +1,24 @@
 import React from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { Router, Switch, Route } from "react-router-dom";
+import { createBrowserHistory } from "history";
+import PrivateRoute from "./PrivateRoute";
 import SignIn from "./Pages/SignIn";
 import SignUp from "./Pages/SignUp";
 import Dashboard from "./Pages/Dashboard";
 import PasswordReset from "./Pages/PasswordReset";
 
+export const history = createBrowserHistory();
+
 function App() {
   return (
-    <BrowserRouter>
+    <Router history={history}>
       <Switch>
-        <Route path="/signin" component={SignIn} />
-        <Route path="/signup" component={SignUp} />
+        <Route exact path="/signin" component={SignIn} />
+        <Route exact path="/signup" component={SignUp} />
         <Route path="/passwordReset" component={PasswordReset} />
-        <Route path="/" component={Dashboard} />
+        <PrivateRoute path="/dashboard" component={Dashboard} />
       </Switch>
-    </BrowserRouter>
+    </Router>
   );
 }
 
